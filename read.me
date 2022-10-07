@@ -1,0 +1,8 @@
+```source /Users/acc/Development/Flask-Learning/env/bin/activate```
+
+POSTMAN
+you can set bearer token automatically with postman.
+Go to test section and paste this code
+```
+pm.environment.set("JWT", pm.response.json().access_token);
+```
