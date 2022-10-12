@@ -4,6 +4,8 @@ from typing import Optional
 from pydantic import BaseModel, EmailStr
 from pydantic.types import conint
 
+from repo.models import Post
+
 # we are using pydantic here
 
 
@@ -35,6 +37,11 @@ class PostResponse(PostBase):
 
     class Config:
         orm_mode = True
+
+
+class PostOut(BaseModel):
+    Post: PostResponse
+    votes: int
 
 
 class UserCreate(BaseModel):
