@@ -50,9 +50,17 @@ def create_post(
 
 
 # using path parameter
-@router.get("/{id}", response_model=PostResponse)
+@router.get("/{id}", response_model=PostOut)
 def get_post(id, response: Response, db: Session = Depends(get_db)):
-    post = db.query(models.Post).filter(models.Post.id == id).first()
+    post = (
+        (
+            db.query(models.Post, func.count(models.Vote.post_id).label("votes"))
+            .join(models.Vote, models.Vote.post_id == models.Post.id, isouter=True)
+            .group_by(models.Post.id)
+        )
+        .filter(models.Post.id == id)
+        .first()
+    )
     if not post:
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND,
