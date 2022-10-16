@@ -17,7 +17,6 @@ def get_posts(
     skip: int = 0,
     search: Optional[str] = "",
 ):
-    print(limit)
     posts = (
         db.query(models.Post)
         .filter(models.Post.title.contains(search))
@@ -35,12 +34,10 @@ def create_post(
     current_user: int = Depends(oauth2.get_current_user),
 ):
     # with the get_current_user we are getting the user_id from the token and ensure that user authenticated before creating a post
-    print(current_user)
     new_post = models.Post(**post.dict())
     db.add(new_post)
     db.commit()
     db.refresh(new_post)
-    print("New Post", new_post.title, new_post.content, new_post.published)
     return new_post
 
 
@@ -93,7 +90,6 @@ def update_post(
 ):
     post_query = db.query(models.Post).filter(models.Post.id == id)
     post = post_query.first()
-    print("ehhere/? ", post)
     if post is None:
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND,
