@@ -1,0 +1,16 @@
+version: '3.7'
+services:
+    db:
+      image: postgres:14.5-bullseye
+      container_name: datastore
+      environment:
+        - POSTGRES_USER=postgres
+        - POSTGRES_PASSWORD=admin
+        - POSTGRES_DB=fastapi
+      volumes:
+        - db_data:/var/lib/postgresql/data
+      ports:
+        - 5432:5432
+
+volumes:
+  db_data:
