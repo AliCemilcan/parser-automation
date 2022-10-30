@@ -2,7 +2,8 @@ from typing import List, Optional
 
 import oauth2
 from database import SessionLocal, engine, get_db
-from fastapi import APIRouter, Body, Depends, FastAPI, HTTPException, Response, status
+from fastapi import (APIRouter, Body, Depends, FastAPI, HTTPException,
+                     Response, status)
 from repo import models
 from schemas import PostBase, PostCreate, PostOut, PostResponse
 from sqlalchemy import func
@@ -20,11 +21,11 @@ def get_posts(
 ):
     post_with_vote = (
         (
-            db.query(models.Post, func.count(models.Vote.post_id).label("votes"))
-            .join(models.Vote, models.Vote.post_id == models.Post.id, isouter=True)
-            .group_by(models.Post.id)
+            db.query(models.Posts, func.count(models.Vote.post_id).label("votes"))
+            .join(models.Vote, models.Vote.post_id == models.Posts.id, isouter=True)
+            .group_by(models.Posts.id)
         )
-        .filter(models.Post.title.contains(search))
+        .filter(models.Posts.title.contains(search))
         .limit(limit)
         .offset(skip)
         .all()
@@ -41,7 +42,7 @@ def create_post(
 ):
     # with the get_current_user we are getting the user_id from the token and ensure that user authenticated before creating a post
     print(current_user)
-    new_post = models.Post(**post.dict())
+    new_post = models.Posts(**post.dict())
     db.add(new_post)
     db.commit()
     db.refresh(new_post)
@@ -54,11 +55,11 @@ def create_post(
 def get_post(id, response: Response, db: Session = Depends(get_db)):
     post = (
         (
-            db.query(models.Post, func.count(models.Vote.post_id).label("votes"))
-            .join(models.Vote, models.Vote.post_id == models.Post.id, isouter=True)
-            .group_by(models.Post.id)
+            db.query(models.Posts, func.count(models.Vote.post_id).label("votes"))
+            .join(models.Vote, models.Vote.post_id == models.Posts.id, isouter=True)
+            .group_by(models.Posts.id)
         )
-        .filter(models.Post.id == id)
+        .filter(models.Posts.id == id)
         .first()
     )
     if not post:
@@ -77,7 +78,7 @@ def delete_post(
     db: Session = Depends(get_db),
     current_user: int = Depends(oauth2.get_current_user),
 ):
-    post_query = db.query(models.Post).filter(models.Post.id == id)
+    post_query = db.query(models.Posts).filter(models.Posts.id == id)
     post = post_query.first()
 
     if post.owner_id != current_user.id:
@@ -104,7 +105,7 @@ def update_post(
     db: Session = Depends(get_db),
     current_user: int = Depends(oauth2.get_current_user),
 ):
-    post_query = db.query(models.Post).filter(models.Post.id == id)
+    post_query = db.query(models.Posts).filter(models.Posts.id == id)
     post = post_query.first()
     print("ehhere/? ", post)
     if post is None:
