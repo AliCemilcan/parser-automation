@@ -10,7 +10,8 @@ from repo.models import Base
 from routers import auth, post, user, vote
 
 # get a session from the database and close it when request is done
-models.Base.metadata.create_all(bind=engine)
+# models.Base.metadata.create_all(bind=engine)
+
 app = FastAPI()
 origins = ["*"]
 app.add_middleware(

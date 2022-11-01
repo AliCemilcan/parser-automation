@@ -6,3 +6,25 @@ Go to test section and paste this code
 ```
 pm.environment.set("JWT", pm.response.json().access_token);
 ```
+Postrgresql commands for ubuntu
+#ubuntu update system
+sudo apt update && sudo apt upgrade -y
+#Login
+psql -U postgres
+#restart Postrgresql
+systemctl restart postgresql```
+#postgresql config files
+cd /etc/postgresql/12/main
+#installed libraries
+apt install postgresql postgresql-contrib -y
+# added users
+adduser acc
+## password is admin
+# login as a user
+su - acc
+#give sudo access to user
+usermod -aG sudo acc
+# creating app folder and venv
+~ pwd : /home/acc/app
+source venv/bin/activate
+```
