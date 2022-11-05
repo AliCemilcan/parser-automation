@@ -28,3 +28,13 @@ usermod -aG sudo acc
 ~ pwd : /home/acc/app
 source venv/bin/activate
 ```
+How to start server with guvicorn
+```
+gunicorn -w 4 -k uvicorn.workers.UvicornWorker main:app --bind 0.0.0.0
+```
+we created a file call api.service which will start api when the server activated
+it lives in here `/etc/systemd/system`
+execute this command to enable reboot
+```sudo systemctl enable api```
+
+How to check env variables ? printenv
