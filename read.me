@@ -37,4 +37,18 @@ it lives in here `/etc/systemd/system`
 execute this command to enable reboot
 ```sudo systemctl enable api```
 
+
+## Loading Nginx
+sudo apt install nginx -y
+after this you need to go to `cd /etc/nginx/sites-available/`
+you see there is a file called "default"
+we updated the servers on the default file so it redirects to the api uri
+
+## Adding SSL
+we will use certbot https://certbot.eff.org/instructions?ws=nginx&os=ubuntufocal
+
+## Configuring Firewall
+`sudo ufw allow https, http, ssh, 5432`
+sudo ufw enable
+image.png
 How to check env variables ? printenv
