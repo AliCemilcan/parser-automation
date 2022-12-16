@@ -52,3 +52,12 @@ we will use certbot https://certbot.eff.org/instructions?ws=nginx&os=ubuntufocal
 sudo ufw enable
 image.png
 How to check env variables ? printenv
+
+# How to restart the api on the server
+sudo systemctl restart api
+
+# DOCKER
+Dockerfile added
+` docker build -t fastapi .` command executed to create the image. The last *.* on the command means current file
+
+`docker image ls`

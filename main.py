@@ -1,10 +1,9 @@
 import psycopg2
-from fastapi import FastAPI
+from config import Settings
+from database import SessionLocal, engine
+from fastapi import FastAPI, status
 from fastapi.middleware.cors import CORSMiddleware
 from psycopg2.extras import RealDictCursor
-
-from config import Settings
-from database import engine
 from repo import models
 from repo.models import Base
 from routers import auth, post, user, vote

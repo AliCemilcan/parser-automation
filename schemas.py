@@ -3,7 +3,6 @@ from typing import Optional
 
 from pydantic import BaseModel, EmailStr
 from pydantic.types import conint
-
 from repo.models import Post
 
 # we are using pydantic here
