@@ -1,13 +1,13 @@
 name: Build and Deploy code
 
 on:
-  [push, pull_request]
-  # push:
-  #   branches: ["main"]
-  # pull_requests:
-  #   branches:
-  #     - "test_branch"
-  #     - "main"
+  # [push, pull_request]
+  push:
+    branches: ["main"]
+  pull_request:
+    branches:
+      - "test_branch"
+      - "main"
 
 jobs:
   job1:
