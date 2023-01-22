@@ -5,8 +5,8 @@ on:
     branches: ["main"]
   pull_requests:
     branches:
-      "test_branch"
-      "main"
+      - "test_branch"
+      - "main"
 
 jobs:
   job1:
