@@ -17,3 +17,11 @@ jobs:
         uses: actions/checkout@v2
       - name: sa hi to Ali
         run: echo "Hello Ali"
+      - name: install python version 3.9
+        run: actions/setup-python@v2
+        with:
+          python-version: "3.9"
+      - name: Update pip
+        run: python -m pip install --upgrade pip
+      - name: install all dependencies
+        run: pip install -r requirements.txt
