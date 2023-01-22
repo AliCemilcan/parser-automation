@@ -29,7 +29,6 @@ def get_posts(
         .offset(skip)
         .all()
     )
-    print(post_with_vote)
     return post_with_vote
 
 
@@ -40,7 +39,6 @@ def create_post(
     current_user: int = Depends(oauth2.get_current_user),
 ):
     # with the get_current_user we are getting the user_id from the token and ensure that user authenticated before creating a post
-    print(current_user)
     new_post = models.Post(**post.dict())
     db.add(new_post)
     db.commit()
@@ -86,7 +84,7 @@ def delete_post(
             detail="Not authorized to perform requested action.",
         )
 
-    if post.first() is None:
+    if post is None:
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND,
             detail=f"post with ID: {id} not found",
@@ -106,7 +104,6 @@ def update_post(
 ):
     post_query = db.query(models.Post).filter(models.Post.id == id)
     post = post_query.first()
-    print("ehhere/? ", post)
     if post is None:
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND,
