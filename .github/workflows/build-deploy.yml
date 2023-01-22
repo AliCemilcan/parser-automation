@@ -1,7 +1,7 @@
 name: Build and Deploy code
 
 on:
-  [push, pull_requests]
+  [push, pull_request]
   # push:
   #   branches: ["main"]
   # pull_requests:
